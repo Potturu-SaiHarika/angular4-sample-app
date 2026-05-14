@@ -1,0 +1,83 @@
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h2>Cities CRUD (Angular 4)</h2>
+      <p class="sub">Add / Edit / Delete / Search</p>
+    </div>
+
+    <div class="search">
+      <input [(ngModel)]="search" (input)="applyFilter()" placeholder="Search city/state/country..." />
+      <button (click)="search=''; applyFilter()">Clear</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>{{ isEdit ? 'Edit City' : 'Add City' }}</h3>
+
+    <div class="grid">
+      <div class="field">
+        <label>City</label>
+        <input [(ngModel)]="form.name" placeholder="Chennai" />
+      </div>
+
+      <div class="field">
+        <label>State</label>
+        <input [(ngModel)]="form.state" placeholder="Tamil Nadu" />
+      </div>
+
+      <div class="field">
+        <label>Country</label>
+        <input [(ngModel)]="form.country" placeholder="India" />
+      </div>
+
+      <div class="field">
+        <label>Population</label>
+        <input type="number" [(ngModel)]="form.population" />
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="primary" (click)="save()">{{ isEdit ? 'Update' : 'Add' }}</button>
+      <button *ngIf="isEdit" (click)="startAdd()">Cancel</button>
+      <button *ngIf="!isEdit" (click)="startAdd()">Reset</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="tableHead">
+      <h3>City List</h3>
+      <span class="count">{{ (filtered$ | async)?.length || 0 }} records</span>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Country</th>
+          <th class="right">Population</th>
+          <th class="right">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let c of filtered$ | async; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td class="bold">{{ c.name }}</td>
+          <td>{{ c.state }}</td>
+          <td>{{ c.country }}</td>
+          <td class="right">{{ c.population }}</td>
+          <td class="right">
+            <button class="small" (click)="startEdit(c)">Edit</button>
+            <button class="small danger" (click)="remove(c)">Delete</button>
+          </td>
+        </tr>
+
+        <tr *ngIf="(filtered$ | async)?.length === 0">
+          <td colspan="6" class="empty">No cities found.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

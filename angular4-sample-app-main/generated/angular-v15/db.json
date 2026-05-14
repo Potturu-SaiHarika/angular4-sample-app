@@ -1,0 +1,18 @@
+{
+  "cities": [
+    {
+      "id": 1,
+      "name": "Chennai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "population": 1100000
+    },
+    {
+      "id": 2,
+      "name": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "population": 10000000
+    }
+  ]
+}
